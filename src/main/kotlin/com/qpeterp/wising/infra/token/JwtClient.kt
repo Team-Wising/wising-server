@@ -1,8 +1,8 @@
-package com.bestswlkh0310.graduating.graduatingserver.infra.token
+package com.qpeterp.wising.infra.token
 
-import com.bestswlkh0310.graduating.graduatingserver.api.auth.res.TokenRes
-import com.bestswlkh0310.graduating.graduatingserver.core.user.UserEntity
-import com.bestswlkh0310.graduating.graduatingserver.global.exception.CustomException
+import com.qpeterp.wising.global.exception.CustomException
+import com.qpeterp.wising.api.auth.res.TokenRes
+import com.qpeterp.wising.core.user.UserEntity
 import io.jsonwebtoken.*
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
@@ -15,8 +15,14 @@ import javax.crypto.spec.SecretKeySpec
 class JwtClient(
     private val jwtProperties: JwtProperties,
 ) {
+    fun payload(key: JwtPayloadKey, claims: Jws<Claims>) =
+        claims.payload.get(key.key, String::class.java) ?: throw CustomException(
+            HttpStatus.UNAUTHORIZED,
+            "invalid token"
+        )
+
     fun payload(key: JwtPayloadKey, token: String): String =
-        parseToken(token).payload.get(key.key, String::class.java)?: throw CustomException(HttpStatus.UNAUTHORIZED, "invalid token")
+        payload(key, parseToken(token))
 
     fun parseToken(token: String): Jws<Claims> =
         try {
@@ -35,7 +41,7 @@ class JwtClient(
             throw CustomException(HttpStatus.UNAUTHORIZED, "invalid token")
         }
 
-    fun generate(user: UserEntity) = Token(
+    fun generate(user: UserEntity) = TokenRes(
         accessToken = createToken(
             user = user,
             tokenExpired = jwtProperties.expired.access,

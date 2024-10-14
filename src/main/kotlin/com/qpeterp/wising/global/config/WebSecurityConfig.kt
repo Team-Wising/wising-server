@@ -1,9 +1,9 @@
-package com.bestswlkh0310.graduating.graduatingserver.global.config
+package com.qpeterp.wising.global.config
 
-import com.bestswlkh0310.graduating.graduatingserver.global.exception.ErrorResponseSender
-import com.bestswlkh0310.graduating.graduatingserver.global.exception.HttpExceptionFilter
-import com.bestswlkh0310.graduating.graduatingserver.global.jwt.JwtAuthenticationFilter
-import com.bestswlkh0310.graduating.graduatingserver.global.jwt.JwtExceptionFilter
+import com.qpeterp.wising.global.exception.ErrorResponseSender
+import com.qpeterp.wising.global.exception.HttpExceptionFilter
+import com.qpeterp.wising.global.jwt.JwtAuthenticationFilter
+import com.qpeterp.wising.global.jwt.JwtExceptionFilter
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpStatus
@@ -35,11 +35,8 @@ class WebSecurityConfig(
         .authorizeHttpRequests {
             it.requestMatchers(
                 "/management/**",
-                
-                "/auth/refresh",
-                "/auth/sign-in",
-                
-                "/school/**",
+
+                "/auth/**"
             ).permitAll()
                 .anyRequest().authenticated()
         }
@@ -51,18 +48,14 @@ class WebSecurityConfig(
         .addFilterBefore(jwtExceptionFilter, JwtAuthenticationFilter::class.java)
         .addFilterBefore(httpExceptionFilter, JwtExceptionFilter::class.java)
         .build()
-    
+
     @Bean
-    fun corsConfigurationSource(): UrlBasedCorsConfigurationSource {
-        val configuration = CorsConfiguration().apply {
+    fun corsConfigurationSource() = UrlBasedCorsConfigurationSource().apply {
+        registerCorsConfiguration("/**", CorsConfiguration().apply {
             addAllowedOriginPattern(CorsConfiguration.ALL)  // Allows any origin
             addAllowedHeader(CorsConfiguration.ALL)         // Allows any header
             addAllowedMethod(CorsConfiguration.ALL)         // Allows any HTTP method
             allowCredentials = true                         // Allows cookies and credentials
-        }
-
-        return UrlBasedCorsConfigurationSource().apply {
-            registerCorsConfiguration("/**", configuration)
-        }
+        })
     }
 }

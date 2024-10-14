@@ -1,4 +1,4 @@
-package com.bestswlkh0310.graduating.graduatingserver.global.exception
+package com.qpeterp.wising.global.exception
 
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
@@ -12,7 +12,7 @@ import org.springframework.web.filter.OncePerRequestFilter
 @Component
 class HttpExceptionFilter(
     private val sender: ErrorResponseSender
-): OncePerRequestFilter() {
+) : OncePerRequestFilter() {
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,

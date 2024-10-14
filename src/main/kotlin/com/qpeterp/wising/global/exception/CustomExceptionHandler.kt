@@ -1,6 +1,6 @@
-package com.bestswlkh0310.graduating.graduatingserver.global.exception
+package com.qpeterp.wising.global.exception
 
-import com.bestswlkh0310.graduating.graduatingserver.global.ErrorRes
+import com.qpeterp.wising.global.ErrorRes
 import mu.KLogger
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

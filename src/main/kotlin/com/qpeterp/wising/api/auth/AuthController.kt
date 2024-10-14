@@ -1,8 +1,8 @@
-package com.bestswlkh0310.graduating.graduatingserver.api.auth
+package com.qpeterp.wising.api.auth
 
-import com.bestswlkh0310.graduating.graduatingserver.api.auth.req.SignUpReq
-import com.bestswlkh0310.graduating.graduatingserver.api.auth.req.RefreshReq
-import com.bestswlkh0310.graduating.graduatingserver.api.auth.req.SignInReq
+import com.qpeterp.wising.api.auth.req.SignUpReq
+import com.qpeterp.wising.api.auth.req.RefreshReq
+import com.qpeterp.wising.api.auth.req.SignInReq
 import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody

@@ -1,7 +1,7 @@
-package com.bestswlkh0310.graduating.graduatingserver.global.jwt
+package com.qpeterp.wising.global.jwt
 
 
-import com.bestswlkh0310.graduating.graduatingserver.core.user.UserEntity
+import com.qpeterp.wising.core.user.UserEntity
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 

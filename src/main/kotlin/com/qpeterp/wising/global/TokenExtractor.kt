@@ -1,6 +1,6 @@
-package com.bestswlkh0310.graduating.graduatingserver.global
+package com.qpeterp.wising.global
 
-import com.bestswlkh0310.graduating.graduatingserver.global.exception.CustomException
+import com.qpeterp.wising.global.exception.CustomException
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus
 

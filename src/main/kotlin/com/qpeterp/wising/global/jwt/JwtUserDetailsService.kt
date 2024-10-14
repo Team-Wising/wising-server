@@ -1,7 +1,7 @@
-package com.bestswlkh0310.graduating.graduatingserver.global.jwt
+package com.qpeterp.wising.global.jwt
 
-import com.bestswlkh0310.graduating.graduatingserver.core.user.UserRepository
-import com.bestswlkh0310.graduating.graduatingserver.core.user.getByEmail
+import com.qpeterp.wising.core.user.UserRepository
+import com.qpeterp.wising.core.user.getByEmail
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service
 

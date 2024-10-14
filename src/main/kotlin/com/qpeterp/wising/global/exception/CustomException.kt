@@ -1,4 +1,4 @@
-package com.bestswlkh0310.graduating.graduatingserver.global.exception
+package com.qpeterp.wising.global.exception
 
 import org.springframework.http.HttpStatus
 

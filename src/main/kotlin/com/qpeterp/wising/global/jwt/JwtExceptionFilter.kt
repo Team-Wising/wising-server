@@ -1,7 +1,7 @@
-package com.bestswlkh0310.graduating.graduatingserver.global.jwt
+package com.qpeterp.wising.global.jwt
 
-import com.bestswlkh0310.graduating.graduatingserver.global.exception.CustomException
-import com.bestswlkh0310.graduating.graduatingserver.global.exception.ErrorResponseSender
+import com.qpeterp.wising.global.exception.CustomException
+import com.qpeterp.wising.global.exception.ErrorResponseSender
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -12,7 +12,7 @@ import org.springframework.web.filter.OncePerRequestFilter
 @Component
 class JwtExceptionFilter(
     private val sender: ErrorResponseSender
-): OncePerRequestFilter() {
+) : OncePerRequestFilter() {
 
     override fun doFilterInternal(
         request: HttpServletRequest,

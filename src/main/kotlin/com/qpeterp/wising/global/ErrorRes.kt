@@ -1,4 +1,4 @@
-package com.bestswlkh0310.graduating.graduatingserver.global
+package com.qpeterp.wising.global
 
 data class ErrorRes(
     val status: Int,

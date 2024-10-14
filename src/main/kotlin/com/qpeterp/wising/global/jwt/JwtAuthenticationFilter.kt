@@ -1,8 +1,8 @@
-package com.bestswlkh0310.graduating.graduatingserver.global.jwt
+package com.qpeterp.wising.global.jwt
 
-import com.bestswlkh0310.graduating.graduatingserver.global.TokenExtractor
-import com.bestswlkh0310.graduating.graduatingserver.infra.token.JwtClient
-import com.bestswlkh0310.graduating.graduatingserver.infra.token.JwtPayloadKey
+import com.qpeterp.wising.global.TokenExtractor
+import com.qpeterp.wising.infra.token.JwtClient
+import com.qpeterp.wising.infra.token.JwtPayloadKey
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse

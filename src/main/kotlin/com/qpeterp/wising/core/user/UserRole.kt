@@ -1,4 +1,4 @@
-package com.bestswlkh0310.graduating.graduatingserver.core.user
+package com.qpeterp.wising.core.user
 
 enum class UserRole {
     USER,

@@ -1,8 +1,6 @@
-package com.bestswlkh0310.graduating.graduatingserver.api.auth.req
-
-import com.bestswlkh0310.graduating.graduatingserver.core.user.PlatformType
+package com.qpeterp.wising.api.auth.req
 
 data class SignInReq(
-    val platformType: PlatformType,
-    val code: String,
+    val email: String,
+    val password: String
 )

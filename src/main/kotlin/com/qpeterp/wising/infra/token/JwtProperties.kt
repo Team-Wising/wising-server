@@ -1,4 +1,4 @@
-package com.bestswlkh0310.graduating.graduatingserver.infra.token
+package com.qpeterp.wising.infra.token
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.bind.ConstructorBinding

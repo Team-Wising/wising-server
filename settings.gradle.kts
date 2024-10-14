@@ -1,1 +1,1 @@
-rootProject.name = "wising-server"
+rootProject.name = "wising"

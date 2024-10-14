@@ -1,4 +1,4 @@
-package com.bestswlkh0310.graduating.graduatingserver.global.interceptor
+package com.qpeterp.wising.global.interceptor
 
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse

@@ -1,7 +1,7 @@
-package com.bestswlkh0310.graduating.graduatingserver.core.user
+package com.qpeterp.wising.core.user
 
-import com.bestswlkh0310.graduating.graduatingserver.global.exception.CustomException
-import com.bestswlkh0310.graduating.graduatingserver.global.jwt.JwtUserDetails
+import com.qpeterp.wising.global.exception.CustomException
+import com.qpeterp.wising.global.jwt.JwtUserDetails
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component

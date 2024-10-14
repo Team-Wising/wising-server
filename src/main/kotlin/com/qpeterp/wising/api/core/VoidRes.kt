@@ -1,3 +1,3 @@
-package com.bestswlkh0310.graduating.graduatingserver.api.core
+package com.qpeterp.wising.api.core
 
 class VoidRes

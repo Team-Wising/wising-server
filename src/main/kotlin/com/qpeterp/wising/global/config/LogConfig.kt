@@ -1,4 +1,4 @@
-package com.bestswlkh0310.graduating.graduatingserver.global.config
+package com.qpeterp.wising.global.config
 
 import mu.KotlinLogging
 import org.springframework.context.annotation.Bean
