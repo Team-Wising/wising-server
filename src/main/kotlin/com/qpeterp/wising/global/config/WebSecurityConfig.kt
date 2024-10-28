@@ -36,8 +36,16 @@ class WebSecurityConfig(
         .authorizeHttpRequests { registry ->
             registry
                 .requestMatchers(
-                    "/management/**", 
-                    "/auth/**"
+                    // Actuator
+                    "/management/**",
+                    
+                    // Auth
+                    "/auth/**",
+                    
+                    // Swagger
+                    "/swagger-ui/**",
+                    "/swagger-resources/**",
+                    "/v3/api-docs/**"
                 ).permitAll()
                 .anyRequest().authenticated()
         }
