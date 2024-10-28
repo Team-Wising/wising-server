@@ -1,6 +1,7 @@
 package com.qpeterp.wising.global.exception
 
-import com.qpeterp.wising.global.ErrorRes
+import com.qpeterp.wising.global.error.ErrorRes
+import com.qpeterp.wising.global.error.toErrorRes
 import mu.KLogger
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -20,7 +21,8 @@ class CustomExceptionHandler(
     @ExceptionHandler(CustomException::class)
     fun handleCustomException(exception: CustomException): ResponseEntity<ErrorRes> {
         logger.error("CustomExceptionHandler.CustomException", exception)
-        val body = ErrorRes.of(exception.status)
+        
+        val body = exception.status.toErrorRes()
         return ResponseEntity.status(exception.status).body(body)
     }
 
@@ -28,26 +30,26 @@ class CustomExceptionHandler(
     @ResponseStatus(HttpStatus.NOT_FOUND)
     fun handleNoResourceFound(exception: NoResourceFoundException): ErrorRes {
         logger.error("CustomExceptionHandler.NoResourceFoundException", exception)
-        return ErrorRes.of(HttpStatus.NOT_FOUND)
+        return HttpStatus.NOT_FOUND.toErrorRes()
     }
     
     @ExceptionHandler(HttpRequestMethodNotSupportedException::class)
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     fun handleHttpRequestMethodNotSupported(exception: HttpRequestMethodNotSupportedException): ErrorRes {
         logger.error("CustomExceptionHandler.HttpRequestMethodNotSupportedException", exception)
-        return ErrorRes.of(HttpStatus.METHOD_NOT_ALLOWED)
+        return HttpStatus.METHOD_NOT_ALLOWED.toErrorRes()
     }
     
     @ExceptionHandler(MethodArgumentNotValidException::class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     fun handleMethodArgumentNotValid(exception: MethodArgumentNotValidException): ErrorRes {
         logger.error("CustomExceptionHandler.MethodArgumentNotValidException", exception)
-        return ErrorRes.of(HttpStatus.BAD_REQUEST)
+        return HttpStatus.BAD_REQUEST.toErrorRes()
     }
     
     @ExceptionHandler(Exception::class)
     fun handleException(exception: Exception, webRequest: WebRequest): ErrorRes {
         logger.error("CustomExceptionHandler.Exception - $exception")
-        return ErrorRes.of(HttpStatus.INTERNAL_SERVER_ERROR)
+        return HttpStatus.INTERNAL_SERVER_ERROR.toErrorRes()
     }
 }

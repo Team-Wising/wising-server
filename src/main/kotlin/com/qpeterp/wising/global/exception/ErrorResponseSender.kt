@@ -1,6 +1,6 @@
 package com.qpeterp.wising.global.exception
 
-import com.qpeterp.wising.global.ErrorRes
+import com.qpeterp.wising.global.error.ErrorRes
 import com.fasterxml.jackson.databind.ObjectMapper
 import jakarta.servlet.http.HttpServletResponse
 import mu.KLogger

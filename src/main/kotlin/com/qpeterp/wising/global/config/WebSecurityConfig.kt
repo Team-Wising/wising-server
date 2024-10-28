@@ -1,5 +1,6 @@
 package com.qpeterp.wising.global.config
 
+import com.qpeterp.wising.core.user.UserRole
 import com.qpeterp.wising.global.exception.ErrorResponseSender
 import com.qpeterp.wising.global.exception.HttpExceptionFilter
 import com.qpeterp.wising.global.jwt.JwtAuthenticationFilter
@@ -32,17 +33,17 @@ class WebSecurityConfig(
         .sessionManagement { session ->
             session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         }
-        .authorizeHttpRequests {
-            it.requestMatchers(
-                "/management/**",
-
-                "/auth/**"
-            ).permitAll()
+        .authorizeHttpRequests { registry ->
+            registry
+                .requestMatchers(
+                    "/management/**", 
+                    "/auth/**"
+                ).permitAll()
                 .anyRequest().authenticated()
         }
-        .exceptionHandling {
-            it.authenticationEntryPoint { _, response, _ -> sender.send(response, HttpStatus.UNAUTHORIZED) }
-            it.accessDeniedHandler { _, response, _ -> sender.send(response, HttpStatus.FORBIDDEN) }
+        .exceptionHandling { configurer ->
+            configurer.authenticationEntryPoint { _, response, _ -> sender.send(response, HttpStatus.UNAUTHORIZED) }
+            configurer.accessDeniedHandler { _, response, _ -> sender.send(response, HttpStatus.FORBIDDEN) }
         }
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
         .addFilterBefore(jwtExceptionFilter, JwtAuthenticationFilter::class.java)

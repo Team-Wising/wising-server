@@ -18,6 +18,7 @@ class LogInterceptor(
         handler: Any
     ): Boolean {
         logger.info("✅ request url - ${request.requestURI}")
+        logger.info("✅ request method - ${request.method}")
         return super.preHandle(request, response, handler)
     }
 

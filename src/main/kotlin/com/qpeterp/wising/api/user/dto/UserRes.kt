@@ -3,7 +3,7 @@ package com.qpeterp.wising.api.user.dto
 import com.qpeterp.wising.core.user.UserEntity
 
 data class UserRes(
-    val id: Long,
+    val id: Int,
     val email: String,
 ) {
     companion object {

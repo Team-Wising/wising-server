@@ -5,7 +5,7 @@ import jakarta.persistence.*
 @Entity
 @Table(name = "tbl_user")
 class UserEntity(
-    id: Long = 0,
+    id: Int = 0,
     username: String,
     password: String,
     role: UserRole = UserRole.USER,

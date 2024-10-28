@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Repository
 
 @Repository
-interface UserRepository : JpaRepository<UserEntity, Long> {
+interface UserRepository : JpaRepository<UserEntity, Int> {
     fun findByUsername(username: String): List<UserEntity>
     fun existsByUsername(username: String): Boolean
 }
