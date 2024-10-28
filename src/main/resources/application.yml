@@ -2,7 +2,7 @@ spring:
   application:
     name: wising
   datasource:
-    url: ${DB_URL:jdbc:mysql://localhost:3306}
+    url: ${DB_URL:jdbc:mysql://localhost:3306/wising}
     username: ${DB_USERNAME:root}
     password: ${DB_PASSWORD:gnpp}
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -26,4 +26,4 @@ jwt:
   secret-key: ${SECRET_KEY}
   expired:
     access: 3_600_000
-    refresh: 300_000_000 
+    refresh: 300_000_000

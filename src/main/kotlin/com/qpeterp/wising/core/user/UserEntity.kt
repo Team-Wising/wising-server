@@ -6,7 +6,7 @@ import jakarta.persistence.*
 @Table(name = "tbl_user")
 class UserEntity(
     id: Long = 0,
-    email: String,
+    username: String,
     password: String,
     role: UserRole = UserRole.USER,
 ) {
@@ -16,7 +16,7 @@ class UserEntity(
         private set
 
     @Column(nullable = false)
-    var email = email
+    var username = username
         private set
 
     @Column(nullable = false)

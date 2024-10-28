@@ -5,7 +5,6 @@ import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus
 
 object TokenExtractor {
-    
     fun extract(request: HttpServletRequest): String? {
         val authorization = request.getHeader("Authorization") ?: return null
         return token(authorization)

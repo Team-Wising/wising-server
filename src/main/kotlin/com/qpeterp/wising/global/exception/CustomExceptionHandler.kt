@@ -5,7 +5,9 @@ import mu.KLogger
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.HttpRequestMethodNotSupportedException
+import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
+import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.context.request.WebRequest
 import org.springframework.web.servlet.resource.NoResourceFoundException
@@ -18,46 +20,34 @@ class CustomExceptionHandler(
     @ExceptionHandler(CustomException::class)
     fun handleCustomException(exception: CustomException): ResponseEntity<ErrorRes> {
         logger.error("CustomExceptionHandler.CustomException", exception)
-        return createErrorResponse(
-            status = exception.status,
-            message = exception.message
-        )
+        val body = ErrorRes.of(exception.status)
+        return ResponseEntity.status(exception.status).body(body)
     }
 
     @ExceptionHandler(NoResourceFoundException::class)
-    fun handleNoResourceFound(exception: NoResourceFoundException): ResponseEntity<ErrorRes> {
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    fun handleNoResourceFound(exception: NoResourceFoundException): ErrorRes {
         logger.error("CustomExceptionHandler.NoResourceFoundException", exception)
-        return createErrorResponse(
-            status = HttpStatus.NOT_FOUND,
-            message = HttpStatus.NOT_FOUND.reasonPhrase
-        )
+        return ErrorRes.of(HttpStatus.NOT_FOUND)
     }
     
     @ExceptionHandler(HttpRequestMethodNotSupportedException::class)
-    fun handleHttpRequestMethodNotSupported(exception: HttpRequestMethodNotSupportedException): ResponseEntity<ErrorRes> {
+    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+    fun handleHttpRequestMethodNotSupported(exception: HttpRequestMethodNotSupportedException): ErrorRes {
         logger.error("CustomExceptionHandler.HttpRequestMethodNotSupportedException", exception)
-        return createErrorResponse(
-            status = HttpStatus.METHOD_NOT_ALLOWED,
-            message = HttpStatus.METHOD_NOT_ALLOWED.reasonPhrase
-        )
+        return ErrorRes.of(HttpStatus.METHOD_NOT_ALLOWED)
     }
-
+    
+    @ExceptionHandler(MethodArgumentNotValidException::class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    fun handleMethodArgumentNotValid(exception: MethodArgumentNotValidException): ErrorRes {
+        logger.error("CustomExceptionHandler.MethodArgumentNotValidException", exception)
+        return ErrorRes.of(HttpStatus.BAD_REQUEST)
+    }
+    
     @ExceptionHandler(Exception::class)
-    fun handleException(exception: Exception, webRequest: WebRequest): ResponseEntity<ErrorRes> {
-        logger.error("CustomExceptionHandler.Exception", exception)
-        return createErrorResponse(
-            status = HttpStatus.INTERNAL_SERVER_ERROR,
-            message = HttpStatus.INTERNAL_SERVER_ERROR.reasonPhrase,
-        )
+    fun handleException(exception: Exception, webRequest: WebRequest): ErrorRes {
+        logger.error("CustomExceptionHandler.Exception - $exception")
+        return ErrorRes.of(HttpStatus.INTERNAL_SERVER_ERROR)
     }
-
-    private fun createErrorResponse(
-        status: HttpStatus,
-        message: String,
-    ) = ResponseEntity.status(status).body(
-        ErrorRes(
-            status = status.value(),
-            message = message
-        )
-    )
 }

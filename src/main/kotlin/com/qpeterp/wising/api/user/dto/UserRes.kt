@@ -9,7 +9,7 @@ data class UserRes(
     companion object {
         fun of(user: UserEntity) = UserRes(
             id = user.id, 
-            email = user.email,
+            email = user.username,
         )
     }
 }

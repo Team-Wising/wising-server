@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto:
+        create-drop
+    show-sql: true
+jwt:
+  expired:
+    access: 3_600_000
+    refresh: 300_000_000
+  secret-key: 907345e202e27d59d11c02a7736d37a845464a4588edc4132a35062b6a592b65

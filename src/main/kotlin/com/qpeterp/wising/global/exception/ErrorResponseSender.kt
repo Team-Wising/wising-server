@@ -19,12 +19,12 @@ class ErrorResponseSender(
         send(response, customException.status, customException.message)
 
     fun send(response: HttpServletResponse, status: HttpStatus, message: String? = null) {
+        response.apply {
+            this.status = status.value()
+            contentType = MediaType.APPLICATION_JSON_VALUE
+            characterEncoding = "UTF-8"
+        }
         try {
-            response.apply {
-                this.status = status.value()
-                contentType = MediaType.APPLICATION_JSON_VALUE
-                characterEncoding = "UTF-8"
-            }
             response.writer.write(
                 objectMapper.writeValueAsString(
                     ErrorRes(

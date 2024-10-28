@@ -20,20 +20,20 @@ class AuthService(
     private val jwtClient: JwtClient,
 ) {
     fun signIn(req: SignInReq): TokenRes {
-        val user = userRepository.findByEmail(req.email).firstOrNull()
+        val user = userRepository.findByUsername(req.username).firstOrNull()
             ?: throw CustomException(HttpStatus.NOT_FOUND, "Not found user")
         return jwtClient.generate(user)
     }
 
     fun signUp(req: SignUpReq): TokenRes {
-        val exists = userRepository.existsByEmail(req.email)
+        val exists = userRepository.existsByUsername(req.username)
         if (exists) {
             throw CustomException(HttpStatus.UNAUTHORIZED, "User already exists")
         }
         
         val user = userRepository.save(
             UserEntity(
-                email = req.email,
+                username = req.username,
                 password = req.password,
             )
         )
