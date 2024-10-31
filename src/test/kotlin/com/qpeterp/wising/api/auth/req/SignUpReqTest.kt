@@ -17,7 +17,7 @@ class SignUpReqTest {
             "가나다라123ABC" // 한글 또는 숫자 또는 영문
         ]
     )
-    fun `test valid nickname parameter`(element: String) {
+    fun `should pass for valid nickname`(element: String?) {
         validationHelper.assertNoViolation("nickname", element)
     }
 
@@ -29,7 +29,7 @@ class SignUpReqTest {
             "✅✅" // 한글 또는 숫자가 아닌 문자
         ]
     )
-    fun `test invalid nickname parameter`(element: String) {
+    fun `should fail for nickname parameter`(element: String) {
         validationHelper.assertHasViolation("nickname", element)
     }
 
@@ -40,7 +40,7 @@ class SignUpReqTest {
             "abcdabcd12345678", // 16글자 이하
         ]
     )
-    fun `test valid username parameter`(element: String) {
+    fun `should pass for valid username`(element: String) {
         validationHelper.assertNoViolation("username", element)
     }
 
@@ -53,7 +53,7 @@ class SignUpReqTest {
             "a123가나다라" // 영문 또는 숫자가 아님
         ]
     )
-    fun `test invalid username parameter`(element: String) {
+    fun `should fail for invalid username`(element: String) {
         validationHelper.assertHasViolation("username", element)
     }
 
@@ -65,7 +65,7 @@ class SignUpReqTest {
             "abcdefghij1234567890abcdefghij123456789@" // 40자 이하
         ]
     )
-    fun `test valid password parameter`(element: String) {
+    fun `should pass to valid password`(element: String) {
         validationHelper.assertNoViolation("password", element)
     }
 
@@ -77,7 +77,7 @@ class SignUpReqTest {
             "abcdefghij1234567890abcdefghij123456789@!" // 40자 초과
         ]
     )
-    fun `test invalid password parameter`(element: String) {
+    fun `should fail for invalid password`(element: String) {
         validationHelper.assertHasViolation("password", element)
     }
 }

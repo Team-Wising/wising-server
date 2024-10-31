@@ -26,7 +26,7 @@ class JwtClient(
 
     fun parseToken(token: String): Jws<Claims> =
         try {
-            parser().parseSignedClaims(token)
+            Jwts.parser().verifyWith(secretKey()).build().parseSignedClaims(token)
         } catch (e: ExpiredJwtException) {
             throw CustomException(HttpStatus.FORBIDDEN, "expired jwt")
         } catch (e: SignatureException) {
@@ -52,14 +52,6 @@ class JwtClient(
         )
     )
 
-    private fun secretKey() = SecretKeySpec(
-        jwtProperties.secretKey.toByteArray(StandardCharsets.UTF_8),
-        Jwts.SIG.HS256.key().build().algorithm
-    )
-
-    private fun parser() =
-        Jwts.parser().verifyWith(secretKey()).build()
-
     private fun createToken(user: UserEntity, tokenExpired: Long) =
         Jwts.builder()
             .claim(JwtPayloadKey.ID.key, user.id)
@@ -69,4 +61,9 @@ class JwtClient(
             .expiration(Date(Date().time + tokenExpired))
             .signWith(secretKey())
             .compact()
+
+    private fun secretKey() = SecretKeySpec(
+        jwtProperties.secretKey.toByteArray(StandardCharsets.UTF_8),
+        Jwts.SIG.HS256.key().build().algorithm
+    )
 }

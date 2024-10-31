@@ -9,9 +9,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import kotlin.test.Test
 
 @TestDBConfiguration
@@ -20,7 +20,7 @@ import kotlin.test.Test
 class AuthControllerTest {
     @Autowired
     private lateinit var mockMvc: MockMvc
-    
+
     private val nickname = "testNickname"
     private val username = "testUsername"
     private val password = "test123@!"
@@ -35,43 +35,44 @@ class AuthControllerTest {
         username = username,
         password = password,
     )
-    
+
     // Sign up
     @Test
     fun `test sign up success`() {
         mockMvc.perform(
-            MockMvcRequestBuilders.post("/auth/sign-up")
+            post("/auth/sign-up")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(signUpReq.toJson())
-        ).andExpect(MockMvcResultMatchers.status().isOk)
-            .andDo(MockMvcResultHandlers.print())
+        ).andExpect(status().isOk)
+            .andDo(print())
     }
-    
+
     @Test
     fun `test sign up failure due to invalid password format`() {
         mockMvc.perform(
-            MockMvcRequestBuilders.post("/auth/sign-up")
+            post("/auth/sign-up")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(signUpReq.copy(password = "123").toJson())
-        ).andExpect(MockMvcResultMatchers.status().isBadRequest)
-            .andDo(MockMvcResultHandlers.print())
+        ).andExpect(status().isBadRequest)
+            .andDo(print())
     }
-    
+
     @Test
     fun `test sign up failure due to duplicate user`() {
         mockMvc.perform(
-            MockMvcRequestBuilders.post("/auth/sign-up")
+            post("/auth/sign-up")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(signUpReq.toJson())
-        ).andExpect(MockMvcResultMatchers.status().isOk)
-            .andDo(MockMvcResultHandlers.print())
+        ).andExpect(status().isOk)
+            .andDo(print())
         
         mockMvc.perform(
-            MockMvcRequestBuilders.post("/auth/sign-up")
+            post("/auth/sign-up")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(signUpReq.toJson())
-        ).andExpect(MockMvcResultMatchers.status().isUnauthorized)
-            .andDo(MockMvcResultHandlers.print())
+        )
+            .andExpect(status().isUnauthorized)
+            .andDo(print())
     }
 
     // Sign in
@@ -80,9 +81,9 @@ class AuthControllerTest {
         `test sign up success`()
 
         mockMvc.perform(
-            MockMvcRequestBuilders.post("/auth/sign-in")
+            post("/auth/sign-in")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(signInReq.toJson())
-        ).andExpect(MockMvcResultMatchers.status().isOk)
+        ).andExpect(status().isOk)
     }
 }
